@@ -1,0 +1,6 @@
+#FileLock
+#Wed Jun 30 11:47:12 JST 2021
+server=192.168.11.11\:41069
+hostName=control-plane.minikube.internal
+method=file
+id=17a5ad03459eb86d31651e1013e07ee4cb7782fd920

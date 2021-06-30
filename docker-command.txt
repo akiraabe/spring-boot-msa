@@ -1,0 +1,7 @@
+docker run --name axonserver -p 8024:8024 -p 8124:8124 -v "/home/akira/practice/spring-boot/udemy-msa/docker-data/data":/data -v "/home/akira/practice/spring-boot/udemy-msa/docker-data/eventdata":/eventdata -v "/home/akira/practice/spring-boot/udemy-msa/docker-data/config":/config axoniq/axonserver
+
+
+docker ps -a
+
+docker start <container_id>
+docker stop <container_id>
