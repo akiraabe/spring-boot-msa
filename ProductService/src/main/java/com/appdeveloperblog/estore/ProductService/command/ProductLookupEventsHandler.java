@@ -5,6 +5,7 @@ import com.appdeveloperblog.estore.ProductService.core.data.ProductLookupReposit
 import com.appdeveloperblog.estore.ProductService.core.events.ProductCreatedEvent;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ResetHandler;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,5 +25,10 @@ public class ProductLookupEventsHandler {
         // プロダクトがすでにあるか？をチェックする
 
         productLookupRepository.save(productLookupEntity);
+    }
+
+    @ResetHandler
+    public void reset() {
+        productLookupRepository.deleteAll();
     }
 }
