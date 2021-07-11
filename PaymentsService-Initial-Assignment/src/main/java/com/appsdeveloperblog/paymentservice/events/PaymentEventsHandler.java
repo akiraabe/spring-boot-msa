@@ -8,6 +8,7 @@ package com.appsdeveloperblog.paymentservice.events;
 import com.appdeveloperblog.estore.core.events.PaymentProcessedEvent;
 import com.appsdeveloperblog.paymentservice.data.PaymentEntity;
 import com.appsdeveloperblog.paymentservice.data.PaymentRepository;
+import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
+@ProcessingGroup("payment-group")
 public class PaymentEventsHandler {
 
     private final Logger LOGGER = LoggerFactory.getLogger(PaymentEventsHandler.class);
@@ -31,6 +33,7 @@ public class PaymentEventsHandler {
         PaymentEntity paymentEntity = new PaymentEntity();
         BeanUtils.copyProperties(event, paymentEntity);
 
+        LOGGER.info("paymentEntity : " + paymentEntity);
         paymentRepository.save(paymentEntity);
 
     }

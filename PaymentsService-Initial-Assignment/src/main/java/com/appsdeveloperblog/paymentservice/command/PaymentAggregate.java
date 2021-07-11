@@ -13,9 +13,13 @@ import org.axonframework.spring.stereotype.Aggregate;
 
 import com.appdeveloperblog.estore.core.commands.ProcessPaymentCommand;
 import com.appdeveloperblog.estore.core.events.PaymentProcessedEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Aggregate
 public class PaymentAggregate {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentAggregate.class);
 
     @AggregateIdentifier
     private String paymentId;
@@ -26,6 +30,8 @@ public class PaymentAggregate {
     
     @CommandHandler
     public PaymentAggregate(ProcessPaymentCommand processPaymentCommand){
+
+        LOGGER.info("PaymentAggregate's constructor is called with ProcessPaymentCommand");
 
     	if(processPaymentCommand.getPaymentDetails() == null) {
     		throw new IllegalArgumentException("Missing payment details");
@@ -45,6 +51,9 @@ public class PaymentAggregate {
 
     @EventSourcingHandler
     protected void on(PaymentProcessedEvent paymentProcessedEvent){
+        LOGGER.info("PaymentProcessedEvent is handled by the EventSourcingHandler");
+        LOGGER.info("orderId : " + paymentProcessedEvent.getOrderId());
+        LOGGER.info("paymentId : " + paymentProcessedEvent.getPaymentId());
         this.paymentId = paymentProcessedEvent.getPaymentId();
         this.orderId = paymentProcessedEvent.getOrderId();
     }
